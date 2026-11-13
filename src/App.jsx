@@ -4,10 +4,12 @@ import './App.css'
 import { mock1 } from "./constants/users.js"
 import Resultados from "./Resultados"
 import CONFIG from "./config/config.js"
+import Formulario from "./Formulario";
 
 function App() {
   const [query, setQuery] = useState("");
   const [resultado, setResultado] = useState(null);
+  const [error, setError] = useState(null);
 
   const callServer = async (parametro) => {
     console.log("click")
@@ -23,11 +25,14 @@ function App() {
         const data = await response.json();
         console.log(data);
         setResultado(data.users);
+        setError(null)
       } catch (error) {
         console.log(error);
+        setError({ description: error.message });
       }
     } else {
       setResultado(mock1.users)
+      setError(null)
     }
   }
 
@@ -36,10 +41,9 @@ function App() {
       <div className="App">
         <Header />
         <h2 id="buscador">Buscar usuarios </h2>
-        <input type="text" id="query" value={query} onChange={e => setQuery(e.target.value)} placeholder="texto a buscar" />
-        <button id="botonsearch" onClick={() => callServer()}>Buscar</button>
+        <Formulario contenido={query} setContenido={setQuery} callServer={callServer} />
         <button id="botonall" onClick={() => callServer("all")}>Buscar todos</button>
-
+        {error && <h1> Ha habido un error:{error.description} </h1>}
         {resultado && <Resultados resultado={resultado} ></Resultados>}
       </div>
     </>
