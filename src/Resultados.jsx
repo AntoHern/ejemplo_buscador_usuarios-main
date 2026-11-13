@@ -3,9 +3,9 @@ export default function Resultados(props) {
         <ul id="resultados" >
             {props.resultado.map(item => {
                 return <li key={item.id}>
-                    <p>Nombre: <b>{item.firstName}</b>{item.lastName}</p>
+                    <p>Nombre: <b>{item.firstName}</b> {item.lastName}</p>
                     <p>Email: {item.email}</p>
-                    <p> <img serc={item.image} alt={"imagen del usuario{item.firstName}"} /></p>
+                    <p> <img src={item.image} alt={"imagen del usuario{item.firstName}"} /></p>
                 </li>
             })}
 
