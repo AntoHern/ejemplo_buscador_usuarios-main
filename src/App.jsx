@@ -1,24 +1,31 @@
 import{useState} from "react";
 import Header from './Header';
 import './App.css'
+import {mock1} from "./constants/users.js"
+import Resultados from "./Resultados"
 
 function App() {
   const [query, setQuery] = useState(""); 
+  const [resultado, setResultado] = useState(null);
  
   const callServer = () => {
     console.log("click")
+    setResultado(mock1.users)
   }
 
   return (
     <>
       <div className = "App">
         <Header/> 
-        <h2 id ="buscadir">Buscar usuarios </h2>
-        <input type = "text" id = "query" value ={query} onChange = {e=>setQuery(e.target.value)} placehoilder = "texto a buscar"/>
-        <button id = "botonsearch" onClick={()=>callServer()}>Buscar</button>
+        <h2 id ="buscador">Buscar usuarios </h2>
+        <input type = "text" id = "query" value ={query} onChange = {e=>setQuery(e.target.value)} placeholder = "texto a buscar"/>
+        <button id = "botonsearch" onClick={()=>callServer()}>Buscar</button> 
+
+
+        {resultado && <Resultados resultado = {resultado} ></Resultados>}
       </div>
       
-    </>
+    </> 
   )
 }
 
